@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import TabSection from './tab/container/TabSection'
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TabSection />
   </React.StrictMode>,
   document.getElementById('root')
 );
