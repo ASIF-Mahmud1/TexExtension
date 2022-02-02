@@ -85,7 +85,7 @@ const  onSubmit= async()=>{
     
             </IconButton>
           <Typography>
-               <span><MathJax math={"`"+values.query +"`" } /></span>
+               <span><MathJax math={values.query } /></span>
           </Typography>
          
           <br/> {

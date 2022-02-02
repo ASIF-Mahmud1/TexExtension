@@ -50,7 +50,7 @@ export default function App  () {
     return (
       <>
       <span>{suggestion.title} - <MathJax math={suggestion.html} /></span>
-      <CopyToClipboard text={suggestion.content}
+      <CopyToClipboard text={"`"+suggestion.content+"`"}
                 onCopy={() =>{console.log("copied in clipboard")} }>
             <Button
               variant="contained"
