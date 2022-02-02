@@ -7,12 +7,13 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 //import { listFormula } from './api-formula'
 import { makeStyles } from '@material-ui/styles';
 import { dummyFormulaList } from '../../sample/formulae';
+import { Typography } from '@material-ui/core';
 
 export default function App  () {
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [formulaList, setformulaList] = useState([])
-
+  const [pasteText, setPasteText] = useState("");
   useEffect(() => {
     async function fetchFormulaList() {
     //  const response = await listFormula()
@@ -40,14 +41,11 @@ export default function App  () {
     );
   }
 
-  /*
-  
-    if (user.userName.substr(0, userInputLength).toLowerCase().trim() === formattedUserInput) {
-      return true
-    } else {
-      return false
-    }
-  */
+
+ const  onSubmit= async()=>{
+    const text = await navigator.clipboard.readText();
+    setPasteText(text)
+  }
   const renderSuggestion =(suggestion)=> {
     return (
       <>
@@ -97,7 +95,8 @@ export default function App  () {
         theme={theme}
 
       />
-     
+      <Button onClick={onSubmit}><Typography>Submit</Typography></Button>
+     <Typography>Paste Here :{pasteText}</Typography>
     </div>
   );
 };
