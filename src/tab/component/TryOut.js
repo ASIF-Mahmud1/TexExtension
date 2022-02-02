@@ -51,8 +51,8 @@ export default function TryOut() {
 
 const  onSubmit= async()=>{
   const text = await navigator.clipboard.readText();
-
-  setValues({ ...values, ["query"]: text})
+   const result = values.query+ text
+  setValues({ ...values, ["query"]: result})
 }
 
   const handleChange = name => event => {
