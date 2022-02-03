@@ -43,6 +43,23 @@ const dummyFormulaList= [
     },
 ]
 
+const sammpleFormula=[
+  {
+    content: "`frac (b)(a)`",
+    _id: 0
+  },
+  {
+    content:"`x= -b +- (sqrt(b^2 -4ac))/(2a^2)`",
+    _id:1
+  },
+  {
+    content: '`sum_(i=1)^n i^3=((n(n+1))/2)^2`',
+    _id:1
+  },
+ 
+]
+
 export {
+     sammpleFormula,
     dummyFormulaList
 }

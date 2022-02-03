@@ -8,7 +8,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { makeStyles } from '@material-ui/styles';
 import { dummyFormulaList } from '../../sample/formulae';
 import { Typography } from '@material-ui/core';
-
+import  Table from './Table';
 export default function App  () {
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -97,6 +97,7 @@ export default function App  () {
       />
       <Button onClick={onSubmit}><Typography>Submit</Typography></Button>
      <Typography>Paste Here :{pasteText}</Typography>
+     <Table/>
     </div>
   );
 };
