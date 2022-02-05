@@ -45,15 +45,15 @@ const dummyFormulaList= [
 
 const sammpleFormula=[
   {
-    content: "`frac (b)(a)`",
+    content: "frac (b)(a)",
     _id: 0
   },
   {
-    content:"`x=  (-b+-sqrt(b^2 -4ac))  /(2a)`",
+    content:"x=  (-b+-sqrt(b^2 -4ac))  /(2a)",
     _id:1
   },
   {
-    content: '`sum_(i=1)^n i^3=((n(n+1))/2)^2`',
+    content: 'sum_(i=1)^n i^3=((n(n+1))/2)^2',
     _id:2
   },
  
