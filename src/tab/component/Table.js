@@ -2,44 +2,17 @@ import React, {useState,useEffect} from 'react'
 
 import {Button,Typography,Paper,TableRow,TableHead,TableContainer,TableCell,TableBody,Table,TextField} from '@material-ui/core'
 
-import { sammpleFormula } from '../../sample/formulae';
+import { sammpleFormula,dummyFormulaList } from '../../sample/formulae';
 import MathJax from 'react-mathjax-preview'
 import {findUnique,replaceAll,doWhichKey,countString} from '../../helper/helper'
 
 export default function BasicTable() {
-  const [rows,setRows]= useState(sammpleFormula)
+  const [rows,setRows]= useState(dummyFormulaList)
   const [editMode,setEditMode]= useState('')
  const handleChange=(_id,value)=>{
    console.log(_id, value);
-   const dollarFound= countString(value,"$");
-   console.log("dollar found ",dollarFound);
-   if(dollarFound==1)
-   {
-      const firstIndexOfDollar= value.indexOf('$')
-   }
 
-   if(dollarFound==2)
-   {
-      const firstIndexOfDollar= value.indexOf('$')
-      const lastIndexOfDollar= value.lastIndexOf('$')
-      const mahQuery= value.substring(firstIndexOfDollar+1,lastIndexOfDollar)
-      console.log("Copy this shit ",rows[mahQuery].content);
-      
-      console.log("See ",value.slice(0, firstIndexOfDollar));
-   
-      var txt2 = value.slice(0, firstIndexOfDollar) +rows[mahQuery].content + value.slice(lastIndexOfDollar+1);
-
-      console.log("and result is ", txt2);
-      var indexToModify = rows.findIndex(i => i._id === _id);
-      let copyRows=[...rows]
-      if (indexToModify !== -1) 
-      {
-          copyRows[indexToModify]['content'] = txt2;
-      }
-     setRows(copyRows)
-   }
-   else 
-   {
+ 
       var indexToModify = rows.findIndex(i => i._id === _id);
       let copyRows=[...rows]
       if (indexToModify !== -1) 
@@ -47,9 +20,38 @@ export default function BasicTable() {
           copyRows[indexToModify]['content'] = value;
       }
      setRows(copyRows)
+
+
+ }
+
+ const renderFormula=(value)=>{
+
+  const dollarFound= countString(value.content,"$");
+
+
+   if(dollarFound==2)
+   {
+      const firstIndexOfDollar= value.content.indexOf('$')
+      const lastIndexOfDollar= value.content.lastIndexOf('$')
+      const mahQuery= value.content.substring(firstIndexOfDollar+1,lastIndexOfDollar)
+  
+      if(rows[mahQuery]?.content)
+      {
+        var txt2 = value.content.slice(0, firstIndexOfDollar) +rows[mahQuery].content +  value.content.slice(lastIndexOfDollar+1);
+
+        return <MathJax math={ "`"+txt2+"`" } />
+      }
+      return <MathJax math={ "`"+value.content+"`" } />
+   
+   }
+   else 
+   {
+  
+      return <MathJax math={ "`"+value.content+"`" } />
+
    }  
 
-
+  
  }
 
   return (
@@ -78,7 +80,7 @@ export default function BasicTable() {
                  
                   </TableCell>
               <TableCell align="right">
-                  <span> <MathJax math={ "`"+row.content+"`" } /></span>
+                  <span> {renderFormula(row)}</span>
                   </TableCell>
             
             </TableRow>
