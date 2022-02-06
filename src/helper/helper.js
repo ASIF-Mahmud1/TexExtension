@@ -12,7 +12,8 @@ const  replaceAll=(str, find, replace)=> {
      
     // Convert the set into array using spread
     // operator and join it to make string
-    //str = [...str].join("");
+   // str = [...str].join("");
+   str = [...str]
      
     return str;
   }
