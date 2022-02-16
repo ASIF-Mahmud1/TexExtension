@@ -43,9 +43,27 @@ const  replaceAll=(str, find, replace)=> {
   const replaceWith= "("+ temp+ ")"
   let result =replaceAll(text,"b",replaceWith)
   console.log(result);
+
+
+const getSuggestions = (value, formulaList) => {
+  const userInputLength = value.length
+  let lowerCasedSuggestions = formulaList.map(company => {
+    return {
+      id: company.id,
+      title: company.title.toLowerCase(),
+      html: company.html,
+      content: company.content
+    };
+  });
+  return lowerCasedSuggestions.filter(company =>
+    company.title.substr(0, userInputLength).trim() === value.trim().toLowerCase()
+  );
+}
+
   export {
     replaceAll,
     findUnique,
     doWhichKey,
-    countString
+    countString,
+    getSuggestions
   }
