@@ -6,7 +6,7 @@ import { sammpleFormula, dummyFormulaList } from '../../sample/formulae';
 import { findUnique, replaceAll, doWhichKey, countString } from '../../helper/helper'
 import MathJax from 'react-mathjax-preview'
 
-export default function SubstituteLetter({ findAndReplaceMode, formula }) {
+export default function SubstituteLetter({ findAndReplaceMode, formula,table }) {
     const uniqueLetter = findUnique(formula).map((item)=>{
         return {
             currentValue: item,
@@ -28,14 +28,48 @@ export default function SubstituteLetter({ findAndReplaceMode, formula }) {
         // const value= copyRows.map((item)=> item.updatedFormula).join("");
         // console.log("Value is ",value);
         const temp = replaceAll(formula,currentValue,newValue)
-          console.log("temp is ",temp);
+          console.log("temp is ",temp, renderFormula_v2(temp));
+          
         setRows(copyRows)
-        setUpdatedFormula(temp)
+        setUpdatedFormula(renderFormula_v2(temp))
     
     
       }
 
-  
+      var renderFormula_v2 = function(list ) {
+        let result= ''
+       for(let i=0;i<list.length;i++)
+       {
+      
+           if(list[i]==="~")
+           {
+              let processed= list.slice(i+1, list.length)
+              let next$= processed.indexOf("~")
+              if(next$!==-1)
+              {
+                const query= processed.substring(0,next$).trim()
+                if(table[query]===undefined)
+                {
+                    result= result+list[i]
+                }
+                else 
+                {
+                    result=result+ table[query].content
+                     i= i+ (processed.substring(0,next$).trim()).length
+                }
+                
+              }
+    
+           }
+           else 
+           {
+              result= result+list[i]
+           }
+       }
+    
+       return result= result
+        
+    };
 
     return (
         <Fragment>

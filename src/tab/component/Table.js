@@ -55,6 +55,43 @@ export default function BasicTable() {
 
   }
 
+
+  var renderFormula_v2 = function(list ) {
+    let result= ''
+   for(let i=0;i<list.length;i++)
+   {
+  
+       if(list[i]==="~")
+       {
+          let processed= list.slice(i+1, list.length)
+          let next$= processed.indexOf("~")
+          if(next$!==-1)
+          {
+            const query= processed.substring(0,next$).trim()
+            if(rows[query]===undefined)
+            {
+                result= result+list[i]
+            }
+            else 
+            {
+                result=result+ rows[query].content
+                 i= i+ (processed.substring(0,next$).trim()).length
+            }
+            
+          }
+
+       }
+       else 
+       {
+          result= result+list[i]
+       }
+   }
+
+   return  <MathJax math={"`" + result + "`"} />
+    
+};
+
+
   const handleEditSymbols = (value) => {
 
     const found = rows.findIndex(element => element._id === value._id)
@@ -107,10 +144,11 @@ export default function BasicTable() {
 
                 }
 
-                <SubstituteLetter findAndReplaceMode={row.findAndReplaceMode} formula={row.content} />
+                <SubstituteLetter findAndReplaceMode={row.findAndReplaceMode} formula={row.content} table= {rows} />
               </TableCell>
               <TableCell align="right">
-                <span> {renderFormula(row)}</span>
+                {/* <span> {renderFormula(row)}</span> */}
+                <span> {renderFormula_v2(row.content)}</span>
               </TableCell>
 
             </TableRow>
