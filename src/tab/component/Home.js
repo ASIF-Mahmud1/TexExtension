@@ -1,19 +1,16 @@
 
 import React, { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
-import MathJax from 'react-mathjax-preview'
 import AutoSuggest from "react-autosuggest";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 //import { listFormula } from './api-formula'
 import { makeStyles } from '@material-ui/styles';
 import { dummyFormulaList } from '../../sample/formulae';
-import { Typography } from '@material-ui/core';
+import { RenderSuggestion } from '../../helper/component';
 import  Table from './Table';
 export default function App  () {
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [formulaList, setformulaList] = useState([])
-  const [pasteText, setPasteText] = useState("");
   useEffect(() => {
     async function fetchFormulaList() {
     //  const response = await listFormula()
@@ -42,28 +39,8 @@ export default function App  () {
   }
 
 
- const  onSubmit= async()=>{
-    const text = await navigator.clipboard.readText();
-    setPasteText(text)
-  }
-  const renderSuggestion =(suggestion)=> {
-    return (
-      <>
-      <span>{suggestion.title} - <MathJax math={suggestion.html} /></span>
-      <CopyToClipboard text={"`"+suggestion.content+"`"}
-                onCopy={() =>{console.log("copied in clipboard")} }>
-            <Button
-              variant="contained"
-              color="secondary"
-              size="large"
-              style={{backgroundColor:'#00FA9A', fontWeight:'bold', marginLeft:50}}
-            >
-              Copy to Clipboard
-            </Button>
-            </CopyToClipboard>
-      </>
-    );
-  }
+
+
   const handleCLear=()=>{
     setValue('')
   }
@@ -83,7 +60,7 @@ export default function App  () {
           console.log("Selected: " + suggestionValue)
         }
         getSuggestionValue={suggestion => suggestion.title}
-        renderSuggestion={renderSuggestion}
+        renderSuggestion={(suggestion)=><RenderSuggestion suggestion={suggestion} />}
         inputProps={{
           placeholder: "Type formula title",
           value: value,
@@ -95,9 +72,8 @@ export default function App  () {
         theme={theme}
 
       />
-      <Button onClick={onSubmit}><Typography>Submit</Typography></Button>
-     <Typography>Paste Here :{pasteText}</Typography>
-     <Table/>
+   
+     {/* <Table/> */}
     </div>
   );
 };
