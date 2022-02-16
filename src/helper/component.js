@@ -6,14 +6,14 @@
   import { makeStyles } from '@material-ui/styles';
 
   
-  const RenderSuggestion =({suggestion})=> {
+  const RenderSuggestion =({suggestion,setFormulaCopied})=> {
     const classes = useStyles()
 
     return (
       <div className={classes.container}>
       <span>{suggestion.title} - <MathJax math= {"`" + suggestion.content + "`"} /></span>
       <CopyToClipboard text={"`"+suggestion.content+"`"}
-                onCopy={() =>{console.log("copied in clipboard")} }>
+                onCopy={() =>{setFormulaCopied(suggestion)} }>
             <IconButton>
                <AddCircle/>
             </IconButton>

@@ -49,7 +49,7 @@ const getSuggestions = (value, formulaList) => {
   const userInputLength = value.length
   let lowerCasedSuggestions = formulaList.map(company => {
     return {
-      id: company.id,
+      _id: company._id,
       title: company.title.toLowerCase(),
       html: company.html,
       content: company.content

@@ -6,20 +6,20 @@ import { RenderSuggestion } from '../../../helper/component';
 
 
 
-export default function FormulaSuggestion  ({suggestions,setSuggestions,value, setValue, formulaList}) { 
+export default function FormulaSuggestion  ({suggestions,setSuggestions,value, setValue, formulaList,setFormulaCopied}) { 
     const theme = useStyles();
 
     return <AutoSuggest
                 suggestions={suggestions}
                 onSuggestionsClearRequested={() => setSuggestions([])}
                 onSuggestionsFetchRequested={({ value }) => {
-                    console.log(value);
+                    console.log("wha is here ",value);
                     setValue(value);
                     setSuggestions(getSuggestions(value, formulaList));
                 }}
 
                 getSuggestionValue={suggestion => suggestion.title}
-                renderSuggestion={(suggestion) => <RenderSuggestion suggestion={suggestion} />}
+                renderSuggestion={(suggestion) => <RenderSuggestion suggestion={suggestion} setFormulaCopied={setFormulaCopied} />}
                 inputProps={{
                     placeholder: "Type formula title",
                     value: value,
