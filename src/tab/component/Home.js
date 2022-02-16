@@ -4,11 +4,13 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles';
 import { dummyFormulaList } from '../../sample/formulae';
 import FormulaSuggestion from './home/FormulaSuggestion';
+import FormulaList from './home/FormulaList';
 
 export default function App  () {
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [formulaList, setformulaList] = useState([])
+  const [selectedFormulae, setSelectedFormulae] = useState([])
 
   useEffect(() => {
     async function fetchFormulaList() {
@@ -43,7 +45,7 @@ export default function App  () {
           setValue ={setValue}
           formulaList={formulaList}
         />
-   
+      <FormulaList formulae={selectedFormulae} />
     </div>
   );
 };
