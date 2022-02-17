@@ -7,7 +7,7 @@ return (
       <Fragment>
           {
               formulae.map((formula)=>{
-                  return <Formula formula= {formula}  handleParentState={handleParentState} />
+                  return <Formula formula= {formula}  handleParentState={handleParentState} table={formulae} />
               })
           }
       </Fragment>

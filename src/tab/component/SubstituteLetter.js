@@ -38,41 +38,45 @@ export default function SubstituteLetter({ findAndReplaceMode, formula,table }) 
 
       var renderFormula_v2 = function(list ) {
         let result= ''
-       for(let i=0;i<list.length;i++)
-       {
+        for(let i=0;i<list.length;i++)
+        {
+           
+            if(list[i]==="~")
+            {
+               let processed= list.slice(i+1, list.length)
+               let next$= processed.indexOf("~")
+               if(next$!==-1)
+               {
+                 const query= processed.substring(0,next$).trim()         
+                 if(table[query]===undefined)
+                 {
+                     result= result+list[i]
+                 }
+                 else 
+                 {
+                     result=result+ table[query].content
+                      i= i+ (processed.substring(0,next$+1).trim()).length
+                 }
+                 
+               }
+               else 
+               {
+                 result= result+list[i]
+               }
+     
+            }
+            else 
+            {
+               result= result+list[i]
+            }
+        }
       
-           if(list[i]==="~")
-           {
-              let processed= list.slice(i+1, list.length)
-              let next$= processed.indexOf("~")
-              if(next$!==-1)
-              {
-                const query= processed.substring(0,next$).trim()
-                if(table[query]===undefined)
-                {
-                    result= result+list[i]
-                }
-                else 
-                {
-                    result=result+ table[query].content
-                     i= i+ (processed.substring(0,next$).trim()).length
-                }
-                
-              }
-    
-           }
-           else 
-           {
-              result= result+list[i]
-           }
-       }
-    
-       return result= result
+        return result
         
     };
 
     return (
-        <Fragment>
+        <div style={{paddingLeft:300,paddingRight:300,margin:50}} >
             {
                 findAndReplaceMode === true ?
                   <>
@@ -80,12 +84,12 @@ export default function SubstituteLetter({ findAndReplaceMode, formula,table }) 
                      <Typography style={{textAlign:'center'}}> After  <MathJax math={"`" + updatedFormula + "`"} /></Typography>
 
                     <TableContainer component={Paper} >
-                        <Table sx={{ minWidth: 50 }} aria-label="simple table">
+                        <Table sx={{ minWidth: 50 }} aria-label="simple table" >
                             <TableHead>
                                 <TableRow>
                                     <TableCell align="right">Current</TableCell>
                                     <TableCell align="right">New</TableCell>
-                                    <TableCell>Preview</TableCell>
+                                    {/* <TableCell>Preview</TableCell> */}
 
                                 </TableRow>
                             </TableHead>
@@ -99,13 +103,13 @@ export default function SubstituteLetter({ findAndReplaceMode, formula,table }) 
                                             {row.currentValue}
                                         </TableCell>
                                         <TableCell align="right">
-                                            <TextField multiline={true} style={{ width: 500 }} value={row.newValue} onChange={(e)=>handleChange(row.currentValue,e.target.value )} />
+                                            <TextField style={{ width: 80 }} value={row.newValue} onChange={(e)=>handleChange(row.currentValue,e.target.value )} />
 
 
                                         </TableCell>
-                                        <TableCell align="right">
+                                        {/* <TableCell align="right">
                                             <span> <MathJax math={"`" + updatedFormula + "`"} /></span>
-                                        </TableCell>
+                                        </TableCell> */}
 
                                     </TableRow>
                                 ))}
@@ -117,7 +121,7 @@ export default function SubstituteLetter({ findAndReplaceMode, formula,table }) 
                     :
                     <Typography>Preview Mode</Typography>
             }
-        </Fragment>
+        </div>
     )
 }
 

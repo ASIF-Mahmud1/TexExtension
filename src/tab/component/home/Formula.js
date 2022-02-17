@@ -6,7 +6,7 @@ import {FindReplaceRounded ,SaveOutlined } from '@material-ui/icons';
 import SubstituteLetter from '../SubstituteLetter';
 
 
-export default function  Formula ({formula, handleParentState}) { 
+export default function  Formula ({formula, handleParentState, table}) { 
 const {handleChange,handleEditSymbols   }= handleParentState
 const classes = useStyles()
 return (
@@ -26,7 +26,7 @@ return (
 
         </div>
 
-        <SubstituteLetter findAndReplaceMode={formula.findAndReplaceMode} formula={formula.content} table= {[]} />
+        <SubstituteLetter findAndReplaceMode={formula.findAndReplaceMode} formula={formula.content} table= {table} />
         </Fragment>
 )
 
