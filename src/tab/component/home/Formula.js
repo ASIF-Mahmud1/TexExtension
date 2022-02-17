@@ -1,7 +1,10 @@
 import React, {Fragment, useEffect, useState } from 'react'
-import {Button,Typography,TextField} from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles';
 import MathJax from 'react-mathjax-preview'
+import {Button,Paper, InputBase,Divider,IconButton, TextField} from '@material-ui/core'
+import {AddCircle,MenuOpenOutlined ,SearchRounded ,SettingsApplicationsOutlined  } from '@material-ui/icons';
+
+
 
 export default function  Formula ({formula}) { 
 
@@ -9,8 +12,13 @@ const classes = useStyles()
 return (
  
         <div className={classes.container}>
-           
-           <TextField className={classes.input} value= {formula.content}   />
+           <div className={classes.box} >
+              <TextField className={classes.input} value= {formula.content}   />
+              <IconButton>
+                  <SettingsApplicationsOutlined />
+              </IconButton>
+           </div>
+         
            <MathJax math= {"`" + formula.content + "`"} />
 
         </div>
@@ -28,17 +36,26 @@ const useStyles = makeStyles({
     label:{
         marginRight:10
     },
+    box:{
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center',
+
+      height: "20%",
+      width: '50%',
+      border: "3px solid grey",
+      borderRadius: "4px",
+      marginRight:100
+    },
     input: {
-       
-        height: "60px",
-        width: '40%',
-        padding: "10px 20px",
-        fontFamily: "Helvetica, sans-serif",
-        fontWeight: "bold",
-        fontSize: "16px",
-        border: "1px solid #aaa",
-        borderRadius: "4px",
-        marginRight:20
+     width: "2px",
+     height: "60px",
+     width: '90%',
+     padding: "10px 20px",
+     fontFamily: "Helvetica, sans-serif",
+     fontWeight: "bold",
+     fontSize: "16px",
+     borderRadius: "4px"
       },
   
   });
