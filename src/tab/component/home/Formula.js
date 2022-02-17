@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/styles';
 import MathJax from 'react-mathjax-preview'
 import {Button,Paper, InputBase,Divider,IconButton, TextField} from '@material-ui/core'
-import {AddCircle,MenuOpenOutlined ,SearchRounded ,SettingsApplicationsOutlined  } from '@material-ui/icons';
+import {AddCircle,MenuOpenOutlined ,SearchRounded ,SettingsApplicationsOutlined,FindReplaceRounded ,SaveOutlined } from '@material-ui/icons';
 
 
 
@@ -15,7 +15,8 @@ return (
            <div className={classes.box} >
               <TextField className={classes.input} value= {formula.content}   />
               <IconButton>
-                  <SettingsApplicationsOutlined />
+                  <FindReplaceRounded />
+                  <SaveOutlined />
               </IconButton>
            </div>
          
