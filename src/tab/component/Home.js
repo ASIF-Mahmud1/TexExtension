@@ -32,6 +32,36 @@ export default function App  () {
      setValue('')
   }
   
+  const handleChange = (_id, value) => {
+    console.log(_id, value);
+
+
+    var indexToModify = selectedFormulaeList.findIndex(i => i._id === _id);
+    let copyRows = [...selectedFormulaeList]
+    if (indexToModify !== -1) {
+      copyRows[indexToModify]['content'] = value;
+    }
+    setSelectedFormulaeList(copyRows)
+
+
+  }
+
+  const handleEditSymbols = (_id) => {
+
+    const found = selectedFormulaeList.findIndex(element => element._id === _id)
+    if (found === -1) {
+      console.log("Something is wrong", found);
+    }
+    else {
+      const modified = selectedFormulaeList[found]
+      modified['findAndReplaceMode'] = !modified['findAndReplaceMode']
+      let temp = [...selectedFormulaeList]
+      temp[found] = modified
+      setSelectedFormulaeList(temp)
+    }
+
+  }
+
   const theme = useStyles();
   
   const classes = useStyles()
@@ -51,7 +81,7 @@ export default function App  () {
    const found = selectedFormulaeList.find(element => element._id === newFormula._id)
    if(found===undefined)
    {
-       const newList = [...selectedFormulaeList, newFormula]
+       const newList = [...selectedFormulaeList, {...newFormula,findAndReplaceMode: false}]
        setSelectedFormulaeList(newList)
    }
    else
@@ -60,12 +90,14 @@ export default function App  () {
    }
 
   }
+
+  
   return (
     <div  className={classes.container}  >
        <Button onClick={handleCLear}>Clear</Button>
         <FormulaSuggestion   suggestions ={suggestions} setSuggestions= {setSuggestions}   value ={value}   setValue ={setValue} formulaList={formulaList}  setFormulaCopied= {setFormulaCopied}/>
       
-        <FormulaList formulae={selectedFormulaeList} />
+        <FormulaList formulae={selectedFormulaeList}  handleParentState={{handleEditSymbols, handleChange}}   />
     </div>
   );
 };

@@ -1,25 +1,26 @@
 import React, {Fragment, useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/styles';
 import MathJax from 'react-mathjax-preview'
-import {Button,Paper, InputBase,Divider,IconButton, TextField} from '@material-ui/core'
-import {AddCircle,MenuOpenOutlined ,SearchRounded ,SettingsApplicationsOutlined,FindReplaceRounded ,SaveOutlined } from '@material-ui/icons';
+import {Button,Paper, InputBase,Divider,IconButton, TextField, Typography} from '@material-ui/core'
+import {FindReplaceRounded ,SaveOutlined } from '@material-ui/icons';
 
 
 
-export default function  Formula ({formula}) { 
-
+export default function  Formula ({formula, handleParentState}) { 
+const {handleChange,handleEditSymbols   }= handleParentState
 const classes = useStyles()
 return (
  
         <div className={classes.container}>
            <div className={classes.box} >
-              <TextField className={classes.input} value= {formula.content}   />
-              <IconButton>
-                  <FindReplaceRounded />
-                  <SaveOutlined />
+              <TextField className={classes.input} value= {formula.content} onChange={(e) => { handleChange(formula._id, e.target.value) }}   />
+              <IconButton onClick={()=>handleEditSymbols(formula._id)}>
+                {
+                  formula.findAndReplaceMode=== false ? <FindReplaceRounded /> :  <SaveOutlined /> 
+                }
               </IconButton>
            </div>
-         
+
            <MathJax math= {"`" + formula.content + "`"} />
 
         </div>
