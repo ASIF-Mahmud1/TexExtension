@@ -35,7 +35,7 @@ export default function App  () {
   const handleChange = (_id, value,findAndReplaceMode) => {
     console.log(_id, value);
 
-    if(findAndReplaceMode===false)
+   // if(findAndReplaceMode===false)
     {
       var indexToModify = selectedFormulaeList.findIndex(i => i._id === _id);
       let copyRows = [...selectedFormulaeList]
@@ -45,7 +45,7 @@ export default function App  () {
       setSelectedFormulaeList(copyRows)
   
     } 
-    else 
+  //  else 
     {
       // var indexToModify = selectedFormulaeList.findIndex(i => i._id === _id);
       // let copyRows = [...selectedFormulaeList]
