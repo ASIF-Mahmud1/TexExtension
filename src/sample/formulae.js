@@ -1,13 +1,13 @@
 const dummyFormulaList= [
     {
       _id: "61629f4b6fe1fd196ce18c0e",
-      title:"Quadratic formula".toLowerCase(),
+      title:"fraction".toLowerCase(),
       html: "<p>`x= -b +- (sqrt(b^2 -4ac))/(2a)`</p> <p>`x= -b +- (sqrt(b^2 -4ac))/(2a^2)`</p> <p>&nbsp;</p> <p>&nbsp;</p>  <p>&nbsp;</p>",
-      content: "x= -b +- (sqrt(b^2 -4ac))/(2a^2)"
+      content: "frac(t)(s)"
     },
     {
       _id: "61629f4b6fe1fd196ce18c0",
-      title:"Diiferentiaotion".toLowerCase(),
+      title:"Quadratic formula".toLowerCase(),
       html: "<p>`x= -b +- (sqrt(b^2 -4ac))/(2a)`</p> <p>`x= -b +- (sqrt(b^2 -4ac))/(2a^2)`</p> <p>&nbsp;</p> <p>&nbsp;</p>  <p>&nbsp;</p>",
       content: "x= -b +- (sqrt(b^2 -4ac))/(2a^2)"
     },
