@@ -32,16 +32,29 @@ export default function App  () {
      setValue('')
   }
   
-  const handleChange = (_id, value) => {
+  const handleChange = (_id, value,findAndReplaceMode) => {
     console.log(_id, value);
 
-
-    var indexToModify = selectedFormulaeList.findIndex(i => i._id === _id);
-    let copyRows = [...selectedFormulaeList]
-    if (indexToModify !== -1) {
-      copyRows[indexToModify]['content'] = value;
+    if(findAndReplaceMode===false)
+    {
+      var indexToModify = selectedFormulaeList.findIndex(i => i._id === _id);
+      let copyRows = [...selectedFormulaeList]
+      if (indexToModify !== -1) {
+        copyRows[indexToModify]['content'] = value;
+      }
+      setSelectedFormulaeList(copyRows)
+  
+    } 
+    else 
+    {
+      // var indexToModify = selectedFormulaeList.findIndex(i => i._id === _id);
+      // let copyRows = [...selectedFormulaeList]
+      // if (indexToModify !== -1) {
+      //   copyRows[indexToModify]['content'] = renderFormula(value);
+      // }
+      // setSelectedFormulaeList(copyRows)
+        
     }
-    setSelectedFormulaeList(copyRows)
 
 
   }
@@ -91,13 +104,51 @@ export default function App  () {
 
   }
 
+  const  renderFormula = (list )=> {
+    let result= ''
+   for(let i=0;i<list.length;i++)
+   {
+  
+       if(list[i]==="~")
+       {
+          let processed= list.slice(i+1, list.length)
+          let next$= processed.indexOf("~")
+          if(next$!==-1)
+          {
+            const query= processed.substring(0,next$).trim()
+            if(selectedFormulaeList[query]===undefined)
+            {
+                result= result+list[i]
+            }
+            else 
+            {
+                result=result+ selectedFormulaeList[query].content
+                 i= i+ (processed.substring(0,next$).trim()).length
+            }
+            
+          }
+
+       }
+       else 
+       {
+          result= result+list[i]
+       }
+   }
+
+
+  //  return  <MathJax math={"`" + result + "`"} />
+  console.log(result);
+  return result 
+    
+};
+
   
   return (
     <div  className={classes.container}  >
        <Button onClick={handleCLear}>Clear</Button>
         <FormulaSuggestion   suggestions ={suggestions} setSuggestions= {setSuggestions}   value ={value}   setValue ={setValue} formulaList={formulaList}  setFormulaCopied= {setFormulaCopied}/>
       
-        <FormulaList formulae={selectedFormulaeList}  handleParentState={{handleEditSymbols, handleChange}}   />
+        <FormulaList formulae={selectedFormulaeList}  handleParentState={{handleEditSymbols, handleChange, renderFormula}}   />
     </div>
   );
 };

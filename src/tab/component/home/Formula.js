@@ -3,17 +3,18 @@ import { makeStyles } from '@material-ui/styles';
 import MathJax from 'react-mathjax-preview'
 import {Button,Paper, InputBase,Divider,IconButton, TextField, Typography} from '@material-ui/core'
 import {FindReplaceRounded ,SaveOutlined } from '@material-ui/icons';
-
+import SubstituteLetter from '../SubstituteLetter';
 
 
 export default function  Formula ({formula, handleParentState}) { 
 const {handleChange,handleEditSymbols   }= handleParentState
 const classes = useStyles()
 return (
- 
+      <Fragment>
+     
         <div className={classes.container}>
            <div className={classes.box} >
-              <TextField className={classes.input} value= {formula.content} onChange={(e) => { handleChange(formula._id, e.target.value) }}   />
+              <TextField className={classes.input} value= {formula.content} onChange={(e) => { handleChange(formula._id, e.target.value, formula.findAndReplaceMode) }}   />
               <IconButton onClick={()=>handleEditSymbols(formula._id)}>
                 {
                   formula.findAndReplaceMode=== false ? <FindReplaceRounded /> :  <SaveOutlined /> 
@@ -25,6 +26,8 @@ return (
 
         </div>
 
+        <SubstituteLetter findAndReplaceMode={formula.findAndReplaceMode} formula={formula.content} table= {[]} />
+        </Fragment>
 )
 
 }
